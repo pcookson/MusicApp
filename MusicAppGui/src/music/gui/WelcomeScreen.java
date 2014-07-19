@@ -8,6 +8,8 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 
 public class WelcomeScreen {
 	private static final FormToolkit formToolkit = new FormToolkit(Display.getDefault());
@@ -18,7 +20,7 @@ public class WelcomeScreen {
 	 */
 	public static void main(String[] args) {
 		Display display = Display.getDefault();
-		Shell shlPatricksMusicApp = new Shell();
+		final Shell shlPatricksMusicApp = new Shell();
 		shlPatricksMusicApp.setBackground(SWTResourceManager.getColor(204, 255, 255));
 		shlPatricksMusicApp.setSize(450, 300);
 		shlPatricksMusicApp.setText("Patrick's Music App");
@@ -37,7 +39,18 @@ public class WelcomeScreen {
 		mntmImportFile.setText("Import File");
 		
 		Button artists = new Button(shlPatricksMusicApp, SWT.NONE);
-		artists.setBounds(176, 111, 75, 25);
+		artists.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				Artists artistScreen = new Artists();
+				shlPatricksMusicApp.dispose();
+				artistScreen.open();
+				
+				
+			}
+		});
+		artists.setImage(SWTResourceManager.getImage("C:\\Users\\cookson\\Downloads\\stockArtistImage.jpg"));
+		artists.setBounds(22, 36, 218, 165);
 		formToolkit.adapt(artists, true, true);
 		artists.setText("Artists");
 
